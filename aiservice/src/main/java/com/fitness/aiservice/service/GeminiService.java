@@ -42,7 +42,7 @@ public class GeminiService {
         );
 
         String response = webClient.post()
-                .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAU45TcQIemzusGW31tgxlSMusMhk6gwjM")
+                .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=PUT YOUR KEY HERE")
                 .header("Content-Type" ,"application/json")
                 .bodyValue(requestBody)
                 .retrieve()
