@@ -1,0 +1,43 @@
+spring:
+  spring:
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            jwk-set-uri: http://localhost:8181/realms/fitness-oauth2/protocol/openid-connect/certs
+
+
+  # JWKS URI is an important piece in the OAuth2 / JWT (JSON Web Token) world
+  #JWKS URI stands for JSON Web Key Set URI — it's a URL endpoint that provides the public keys your app can use to verify JWT tokens.
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE #lb is used for loadbalacncing , and USER-SERVICE IS THE SERVICE NAME
+          predicates: #predicate defines the routing logic
+            - Path=/api/users/**
+
+        - id: ai-service
+          uri: lb://AI-SERVICE #lb is used for loadbalacncing , and USER-SERVICE IS THE SERVICE NAME , GET THIS NAME FROM EUREKA SERVER
+          predicates: #predicate defines the routing logic
+            - Path=/api/recommendations/**
+
+        - id: activity-service
+          uri: lb://ACTIVITY-SERVICE #lb is used for loadbalacncing , and USER-SERVICE IS THE SERVICE NAME , GET THIS NAME FROM EUREKA SERVER
+          predicates: #predicate defines the routing logic
+            - Path=/api/activities/**
+
+
+  server:
+    port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+
+

@@ -1,0 +1,40 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/Fitness-app-activity
+      database: fitnessrecommendation
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+
+
+rabbitmq:
+  exchange:
+    name: fitness.exchange
+  queue:
+    name: activity.queue
+  routing:
+    key: activity.tracking
+
+
+
+gemini:
+  api:
+    url: ${GEMINI_API_URL}
+    key: ${GEMINI_API_KEY} #WE CAN GET THIS VALUE FROM ENVIRONMENT VARIABLES , ABOVE CLICK ON AISERVICE , AND GO FOR EDIT CONFIGARATIONS , ENABLE ENVINORMENT URLS , AND ADD URL AND KEY THERE
